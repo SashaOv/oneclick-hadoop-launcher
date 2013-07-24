@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>word-count</groupId>
+  <artifactId>hadoop-word-count</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>hadoop-word-count</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <slf4j.version>1.4.3</slf4j.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.linkedin.oneclick</groupId>
+        <artifactId>hadoop-launcher</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <configuration>
+          <excludes>
+            <exclude>org.apache.hadoop:*</exclude>
+            <exclude>org.mortbay.jetty:*</exclude>
+            <exclude>tomcat:*</exclude>
+          </excludes>
+          <params>
+            <param>1</param>
+            <param>2</param>
+          </params>
+          <mainClass>com.example.myTestClass</mainClass>
+          <deployment>
+            <host>local</host>
+          </deployment>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-core</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.mrunit</groupId>
+      <artifactId>mrunit</artifactId>
+      <version>0.5.0-incubating</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

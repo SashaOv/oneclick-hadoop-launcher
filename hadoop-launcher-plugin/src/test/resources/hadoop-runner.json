@@ -1,0 +1,33 @@
+{
+  "excludes" : [ "org.mortbay.jetty:*", "tomcat:*" ],
+  "deployment" : {
+    "host" : "local"
+  },
+  "mainClass" : "com.example.myTestClass",
+  "dependencies" : [ {
+    "scope" : "compile",
+    "file" : "/Users/sovsanki/.m2/repository/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.jar",
+    "version" : "1.4.3",
+    "groupId" : "org.slf4j",
+    "artifactId" : "slf4j-log4j12"
+  }, {
+    "scope" : "compile",
+    "file" : "/Users/sovsanki/.m2/repository/log4j/log4j/1.2.13/log4j-1.2.13.jar",
+    "version" : "1.2.13",
+    "groupId" : "log4j",
+    "artifactId" : "log4j"
+  }, {
+    "scope" : "compile",
+    "file" : "/Users/sovsanki/.m2/repository/org/slf4j/slf4j-api/1.4.3/slf4j-api-1.4.3.jar",
+    "version" : "1.4.3",
+    "groupId" : "org.slf4j",
+    "artifactId" : "slf4j-api"
+  } ],
+  "artifact" : {
+    "scope" : null,
+    "file" : "/my/work/howdah/hadoop-launcher/hadoop-word-count/target/hadoop-word-count-1.0.jar",
+    "version" : "1.0",
+    "groupId" : "word-count",
+    "artifactId" : "hadoop-word-count"
+  }
+}
