@@ -110,4 +110,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <scm>
+    <connection>scm:git:https://git.gitli.corp.linkedin.com/oneclick/hadoop-launcher.git</connection>
+    <developerConnection>scm:git:git@gitli.corp.linkedin.com:oneclick/hadoop-launcher.git</developerConnection>
+    <url>https://gitli.corp.linkedin.com/oneclick/hadoop-launcher</url>
+  </scm>
 </project>
