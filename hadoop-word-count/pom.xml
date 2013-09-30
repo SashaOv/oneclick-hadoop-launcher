@@ -66,4 +66,14 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>Sashas-mvn-repo</id>
+      <name>SashaOv Maven Repo</name>
+      <layout>default</layout>
+      <url>https://raw.github.com/SashaOv/mvn-repo/master</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 </project>
