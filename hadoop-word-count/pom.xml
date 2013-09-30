@@ -13,6 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <slf4j.version>1.4.3</slf4j.version>
+    <launcher.host>localhost</launcher.host>
   </properties>
 
   <build>
@@ -20,7 +21,7 @@
       <plugin>
         <groupId>com.linkedin.oneclick</groupId>
         <artifactId>hadoop-launcher</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
         <configuration>
           <excludes>
             <exclude>org.apache.hadoop:*</exclude>
@@ -28,12 +29,12 @@
             <exclude>tomcat:*</exclude>
           </excludes>
           <params>
-            <param>1</param>
-            <param>2</param>
+            <!-- working directory on HDFS -->
+            <param>onegin</param>
           </params>
-          <mainClass>com.example.myTestClass</mainClass>
+          <mainClass>com.linkedin.oneclick.wordcount.WordCount</mainClass>
           <deployment>
-            <host>local</host>
+            <host>${launcher.host}</host>
           </deployment>
         </configuration>
       </plugin>

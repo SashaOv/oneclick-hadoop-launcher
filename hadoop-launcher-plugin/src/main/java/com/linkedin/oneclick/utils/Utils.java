@@ -1,3 +1,18 @@
+/*
+   Copyright (c) 2013 LinkedIn Corp.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 package com.linkedin.oneclick.utils;
 
 
@@ -10,13 +25,12 @@ import org.slf4j.Logger;
 
 /**
  * Small self-contained utilities.
- *
- * @author sovsankin@linkedin.com
  */
 public class Utils
 {
   static private Logger log= LoggerFactory.getLogger(Utils.class);
 
+  /** @see com.google.common.io.Closeables#closeQuietly(java.io.Closeable) */
   public static void closeQuietly(Closeable closeable)
   {
     if (closeable!=null) {
@@ -29,7 +43,7 @@ public class Utils
   }
 
   /**
-   * Document the fact that we are ignoring exceptions
+   * Document the fact that we are ignoring this exception
    */
   public static void ignore(Throwable exception)
   {

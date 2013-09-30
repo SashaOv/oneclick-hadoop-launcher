@@ -1,4 +1,4 @@
-package wpmcn.hadoop;
+package com.linkedin.oneclick.wordcount;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
