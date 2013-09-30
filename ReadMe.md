@@ -24,6 +24,6 @@ Just add this to your POM file:
 	        </pluginRepository>
 	    </pluginRepositories>
 
-The [hadoop-word-count](http:hadoop-word-count) project contains example of the plugin usage in the
-[POM file](http:hadoop-word-count/pom.xml).
+The [hadoop-word-count](hadoop-word-count) project contains example of the plugin usage in the
+[POM file](hadoop-word-count/pom.xml).
 
