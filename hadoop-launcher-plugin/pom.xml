@@ -3,7 +3,7 @@
   <groupId>com.linkedin.oneclick</groupId>
   <artifactId>hadoop-launcher</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>0.2</version>
+  <version>0.2-SNAPSHOT</version>
   <name>Hadoop Launcher Maven Mojo</name>
   <url>http://maven.apache.org</url>
 
