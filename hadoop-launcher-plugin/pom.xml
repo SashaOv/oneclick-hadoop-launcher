@@ -7,6 +7,11 @@
   <name>Hadoop Launcher Maven Mojo</name>
   <url>http://maven.apache.org</url>
 
+  <scm>
+    <connection>scm:git:git@github.com:SashaOv/oneclick-hadoop-launcher.git</connection>
+    <url>https://github.com/SashaOv/oneclick-hadoop-launcher</url>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
