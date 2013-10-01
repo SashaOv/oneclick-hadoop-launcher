@@ -12,7 +12,7 @@
   </modules>
 
   <scm>
-    <connection>scm:git:file:../release.git</connection>
+    <connection>scm:git:file:/../release.git</connection>
     <url>https://github.com/SashaOv/oneclick-hadoop-launcher</url>
   </scm>
 
