@@ -3,7 +3,7 @@
   <groupId>com.linkedin.oneclick</groupId>
   <artifactId>hadoop-launcher-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.3</version>
   <name>hadoop-launcher parent project</name>
 
   <modules>
@@ -12,7 +12,7 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:https://github.com/SashaOv/oneclick-hadoop-launcher/trunk</connection>
-    <url>https://github.com/SashaOv/oneclick-hadoop-launcher/tags/v0.3</url>
+    <connection>scm:svn:https://github.com/SashaOv/oneclick-hadoop-launcher/tags/v0.3/trunk</connection>
+    <url>https://github.com/SashaOv/oneclick-hadoop-launcher/tags/v0.3/v0.3</url>
   </scm>
 </project>
