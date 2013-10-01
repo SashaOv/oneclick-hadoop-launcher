@@ -8,7 +8,7 @@
   <url>http://maven.apache.org</url>
 
   <scm>
-    <connection>scm:git:git@github.com:SashaOv/oneclick-hadoop-launcher.git</connection>
+    <connection>scm:svn:https://github.com/SashaOv/oneclick-hadoop-launcher/trunk/hadoop-launcher-plugin</connection>
     <url>https://github.com/SashaOv/oneclick-hadoop-launcher</url>
   </scm>
 
