@@ -1,18 +1,18 @@
 /*
-   Copyright (c) 2013 LinkedIn Corp.
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+ * Copyright (c) 2013 LinkedIn Corp.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package com.linkedin.oneclick.utils;
 
 import java.io.BufferedReader;
@@ -35,13 +35,13 @@ public class ShellProcess
   public ShellProcess(String... cmd)
   {
     builder = new ProcessBuilder(cmd);
-    log.debug("cmd=" + toString(builder.command()));
+    log.debug("cmd=" + cmdToString(builder.command()));
   }
 
   public ShellProcess(List<String> cmd)
   {
     builder = new ProcessBuilder(cmd);
-    log.debug("cmd=" + toString(builder.command()));
+    log.debug("cmd=" + cmdToString(builder.command()));
   }
 
   public void setWorkingDir(String workingDir)
@@ -60,7 +60,11 @@ public class ShellProcess
       Process process = builder.start();
       ConsoleStreamer.consumeFrom(process.getInputStream(), null);
       ConsoleStreamer.consumeFrom(process.getErrorStream(), "! ");
-      return process.waitFor();
+      int returnCode= process.waitFor();
+      if (returnCode!=0)
+        throw new OCException("The process failed, return code=" + Integer.toString(returnCode) +
+          "\n\tcmd=" + cmdToString(builder.command()));
+      return returnCode;
     } catch (InterruptedException interrupted) {
       Utils.ignore(interrupted);
       return INTERRUPTED;
@@ -69,13 +73,19 @@ public class ShellProcess
     }
   }
 
-  static String toString(List<?> list)
+  static String cmdToString(List<?> list)
   {
     StringBuffer buf= new StringBuffer();
     for (Object obj : list) {
       if (buf.length() > 0)
         buf.append(' ');
-      buf.append(CommandBuffer.escape(obj.toString()));
+      String s= obj.toString();
+      boolean quote= s.indexOf(' ') >= 0;
+      if (quote)
+        buf.append('"');
+      buf.append(s);
+      if (quote)
+        buf.append('"');
     }
     return buf.toString();
   }
