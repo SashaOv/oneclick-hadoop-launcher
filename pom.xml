@@ -7,7 +7,7 @@
   <name>hadoop-launcher parent project</name>
 
   <modules>
-    <module>hadoop-launcher-plugin</module>
+    <module>launcher-maven-plugin</module>
     <module>hadoop-word-count</module>
   </modules>
 

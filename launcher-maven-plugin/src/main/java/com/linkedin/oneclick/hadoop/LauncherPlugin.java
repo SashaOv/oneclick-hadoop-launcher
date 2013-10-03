@@ -26,6 +26,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -66,6 +67,9 @@ public class LauncherPlugin extends AbstractMojo
 
   @Parameter(property = "params")
   protected List<String> params;
+
+  @Parameter(property = "commands")
+  protected Map<String, String> commands;
 
   public void execute()
       throws MojoExecutionException
@@ -127,6 +131,8 @@ public class LauncherPlugin extends AbstractMojo
         }
       }
     }
+    if (commands!=null && !commands.isEmpty())
+      config.setCommands(commands);
     config.setDependencies(dependencies);
     config.setMainClass(mainClass);
     config.setDeployment(deployment);

@@ -12,15 +12,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <slf4j.version>1.4.3</slf4j.version>
-    <launcher.host>localhost</launcher.host>
+    <oneclick.host>localhost</oneclick.host>
   </properties>
 
   <build>
     <plugins>
       <plugin>
         <groupId>com.linkedin.oneclick</groupId>
-        <artifactId>hadoop-launcher</artifactId>
-        <version>0.2</version>
+        <artifactId>oneclick-maven-plugin</artifactId>
+        <version>0.4-SNAPSHOT</version>
         <configuration>
           <excludes>
             <exclude>org.apache.hadoop:*</exclude>
@@ -33,8 +33,11 @@
           </params>
           <mainClass>com.linkedin.oneclick.wordcount.WordCount</mainClass>
           <deployment>
-            <host>${launcher.host}</host>
+            <host>${oneclick.host}</host>
           </deployment>
+          <commands>
+            <ssh.options>-K</ssh.options>
+          </commands>
         </configuration>
       </plugin>
     </plugins>

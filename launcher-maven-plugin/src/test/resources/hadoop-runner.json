@@ -29,5 +29,9 @@
     "version" : "1.0",
     "groupId" : "word-count",
     "artifactId" : "hadoop-word-count"
+  },
+  "commands": {
+      "ssh" : "ssh",
+      "rsync.command" : "rsync"
   }
 }

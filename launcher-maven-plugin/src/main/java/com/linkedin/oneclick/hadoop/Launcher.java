@@ -17,11 +17,15 @@ package com.linkedin.oneclick.hadoop;
 
 import com.google.common.collect.Lists;
 import com.linkedin.oneclick.utils.CommandBuffer;
+import com.linkedin.oneclick.utils.Customizer;
+import com.linkedin.oneclick.utils.OCException;
 import com.linkedin.oneclick.utils.ShellProcess;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -33,11 +37,26 @@ public class Launcher
 
   LauncherConfig config;
   String jobDir;
+  Customizer customizer;
 
   public Launcher(LauncherConfig config)
   {
-    this.config = config;
-    this.jobDir = "~/" + config.getArtifact().getArtifactId();
+    try {
+      this.config = config;
+      this.jobDir = "~/" + config.getArtifact().getArtifactId();
+      this.customizer= new Customizer();
+      Properties commandProperties= new Properties();
+      commandProperties.load(getClass().getResourceAsStream("/commands.properties"));
+      for(String variable : commandProperties.stringPropertyNames())
+        customizer.set(variable, commandProperties.getProperty(variable));
+      if (config.hasCommands()) {
+        Map<String, String> configuredCommands= config.getCommands();
+        for(Map.Entry<String, String> entry : configuredCommands.entrySet())
+          customizer.set(entry.getKey(), entry.getValue());
+      }
+    } catch (IOException e) {
+      throw OCException.unchecked(e);
+    }
   }
 
   public void run()
@@ -60,23 +79,22 @@ public class Launcher
 
   void deploy()
   {
-    CommandBuffer mkdir = new CommandBuffer("mkdir", "-p", jobDir + "/lib", jobDir + "/work");
-    new ShellProcess("ssh", "-o", LOG_LEVEL_OPTION, config.getDeployment().getHost(), mkdir.toString()).run();
-    new ShellProcess("rsync", "-azv", "-e", RSYNC_SSH_COMMAND,
-                     config.getArtifact().getFile().getAbsolutePath(),
-                     config.getDeployment().getHost() + ":" + jobDir + "/lib/").run();
+    customizer.set("remote.host", config.getDeployment().getHost());
+    customizer.set("remote.command",  new CommandBuffer("mkdir", "-p", jobDir + "/lib", jobDir + "/work").toString());
+    new ShellProcess(customizer.twoPhaseEvaluate("${ssh.run}")).run();
 
-    List<String> depsCommand = Lists.newArrayList("rsync", "-azv", "-e", RSYNC_SSH_COMMAND);
+    List<String> rsyncCommand= Lists.newArrayList(customizer.twoPhaseEvaluate("${rsync.start}"));
+    rsyncCommand.add(config.getArtifact().getFile().getAbsolutePath());
     Set<String> depNames = new HashSet<String>();
     for (LauncherConfig.Artifact dep : config.getDependencies()) {
       String fileName = dep.getFile().getName();
       boolean alreadyExisted = !depNames.add(fileName);
       if (alreadyExisted)
         log.warn("Duplicate dependency name:" + fileName);
-      depsCommand.add(dep.getFile().getAbsolutePath());
+      rsyncCommand.add(dep.getFile().getAbsolutePath());
     }
-    depsCommand.add(config.getDeployment().getHost() + ":" + jobDir + "/lib/");
-    new ShellProcess(depsCommand).run();
+    rsyncCommand.add(config.getDeployment().getHost() + ":" + jobDir + "/lib/");
+    new ShellProcess(rsyncCommand).run();
   }
 
   void execute()
@@ -91,9 +109,13 @@ public class Launcher
       for (String param : runParams)
         launchCommand.add(param);
     }
-    new ShellProcess("ssh", "-o", LOG_LEVEL_OPTION, config.getDeployment().getHost(), launchCommand.toString()).run();
+    customizer.set("remote.command", launchCommand.toString());
+    new ShellProcess(customizer.twoPhaseEvaluate("${ssh.run}")).run();
   }
 
+  /**
+   * This entry point can be used for testing, debugging and troubleshooting
+   */
   public static void main(String[] args) throws IOException
   {
     String configPath = args[0];

@@ -18,7 +18,7 @@ package com.linkedin.oneclick.hadoop;
 
 import java.io.File;
 import java.util.List;
-import org.apache.maven.artifact.Artifact;
+import java.util.Map;
 
 public class LauncherConfig
 {
@@ -28,6 +28,7 @@ public class LauncherConfig
   List<String> runParams;
   String mainClass;
   Deployment deployment;
+  Map<String, String> commands;
 
   public Artifact getArtifact()
   {
@@ -89,6 +90,21 @@ public class LauncherConfig
     this.runParams = runParams;
   }
 
+  public void setCommands(Map<String, String> in)
+  {
+    commands= in;
+  }
+
+  public boolean hasCommands()
+  {
+    return commands!=null && !commands.isEmpty();
+  }
+
+  public Map<String, String> getCommands()
+  {
+    return commands;
+  }
+
   public static class Artifact {
     String groupId;
     String artifactId;
@@ -145,6 +161,7 @@ public class LauncherConfig
     {
       this.scope = scope;
     }
+
   }
 
   public static class Exclude
