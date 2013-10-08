@@ -1,18 +1,18 @@
 /*
-   Copyright (c) 2013 LinkedIn Corp.
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+ * Copyright (c) 2013 LinkedIn Corp.
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package com.linkedin.oneclick.hadoop;
 
 import com.google.common.collect.Lists;
@@ -100,7 +100,17 @@ public class Launcher
   void execute()
   {
     CommandBuffer launchCommand = new CommandBuffer("cd", jobDir + "/work ;");
-    launchCommand.add("HADOOP_CLASSPATH=../lib/*");
+    StringBuffer classPath= new StringBuffer("HADOOP_CLASSPATH=");
+    boolean first= true;
+    for(LauncherConfig.Artifact dep : config.getDependencies()) {
+      if (first)
+        first= false;
+      else
+        classPath.append(":");
+      classPath.append("../lib/");
+      classPath.append(dep.getFile().getName());
+    }
+    launchCommand.add(classPath.toString());
     launchCommand.add("hadoop jar");
     launchCommand.add("../lib/" + config.getArtifact().getFile().getName());
     launchCommand.add(config.getMainClass());

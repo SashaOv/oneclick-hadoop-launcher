@@ -76,7 +76,10 @@ public class Customizer
 
     @Override public void set(String name, Object value)
     {
-      variables.put(name, interpreter.parse(value.toString()));
+      if (value==null)
+        variables.put(name, null);
+      else
+        variables.put(name, interpreter.parse(value.toString()));
     }
 
     @Override public boolean has(String name)
