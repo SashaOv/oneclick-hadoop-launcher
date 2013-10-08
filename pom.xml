@@ -29,6 +29,6 @@
 
   <scm>
     <connection>scm:git:git@github.com:SashaOv/oneclick-hadoop-launcher.git</connection>
-    <url>https://github.com/SashaOv/oneclick-hadoop-launcher/tags/v0.3/v0.3</url>
+    <url>https://github.com/SashaOv/oneclick-hadoop-launcher</url>
   </scm>
 </project>
