@@ -19,7 +19,7 @@
 
   <groupId>word-count</groupId>
   <artifactId>hadoop-word-count</artifactId>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.4</version>
   <packaging>jar</packaging>
 
   <name>hadoop-word-count</name>
@@ -36,7 +36,7 @@
       <plugin>
         <groupId>com.linkedin.oneclick</groupId>
         <artifactId>launcher-maven-plugin</artifactId>
-        <version>0.4-SNAPSHOT</version>
+        <version>0.4</version>
         <configuration>
           <excludes>
             <exclude>org.apache.hadoop:*</exclude>
