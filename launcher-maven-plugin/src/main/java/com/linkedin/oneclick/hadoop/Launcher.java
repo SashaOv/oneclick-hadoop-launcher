@@ -13,6 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 package com.linkedin.oneclick.hadoop;
 
 import com.google.common.collect.Lists;
@@ -65,9 +66,6 @@ public class Launcher
     execute();
   }
 
-  static final String LOG_LEVEL_OPTION = "LogLevel=Error";
-  static final String RSYNC_SSH_COMMAND = "ssh -o " + LOG_LEVEL_OPTION;
-
   /*
     Remote job directory layout
     ${jobdir} = ~/job/${job-id}
@@ -100,13 +98,11 @@ public class Launcher
   void execute()
   {
     CommandBuffer launchCommand = new CommandBuffer("cd", jobDir + "/work ;");
-    StringBuffer classPath= new StringBuffer("HADOOP_CLASSPATH=");
-    boolean first= true;
+    StringBuilder classPath= new StringBuilder("HADOOP_CLASSPATH=");
+    classPath.append("../lib/");
+    classPath.append(config.getArtifact().getFile().getName());
     for(LauncherConfig.Artifact dep : config.getDependencies()) {
-      if (first)
-        first= false;
-      else
-        classPath.append(":");
+      classPath.append(":");
       classPath.append("../lib/");
       classPath.append(dep.getFile().getName());
     }
