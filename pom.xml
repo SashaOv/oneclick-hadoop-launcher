@@ -19,7 +19,7 @@
   <groupId>com.linkedin.oneclick</groupId>
   <artifactId>hadoop-launcher-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.6</version>
+  <version>0.7-SNAPSHOT</version>
   <name>hadoop-launcher parent project</name>
 
   <modules>
