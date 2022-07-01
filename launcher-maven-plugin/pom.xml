@@ -121,7 +121,7 @@
       <!-- generated help mojo has a dependency to plexus-utils -->
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0.1</version>
+      <version>3.0.16</version>
     </dependency>
 
     <dependency>
